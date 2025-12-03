@@ -15,23 +15,21 @@ const Hero = () => {
       
       <div className="container mx-auto px-6 lg:px-8 relative z-10 text-center pt-20">
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Logos em destaque */}
+          {/* Área de Parceria (Apenas Vision Press) */}
           <div className="flex flex-col items-center gap-6 mb-8">
-            <img 
-              src="/src/assets/logo-solara-full.jpg" 
-              alt="Solara Project" 
-              className="h-20 md:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity"
-            />
             <div className="flex items-center gap-4">
               <div className="h-px w-12 bg-border"></div>
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-light">em parceria com</span>
               <div className="h-px w-12 bg-border"></div>
             </div>
-            <img 
-              src="/src/assets/logo-vision.png" 
-              alt="Vision Press" 
-              className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
-            />
+
+            <div className="h-24 w-24 rounded-full border border-black p-2 bg-white overflow-hidden flex items-center justify-center shadow-sm hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/src/assets/logo-vision.png" 
+                alt="Vision Press" 
+                className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </div>
           </div>
           
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light">

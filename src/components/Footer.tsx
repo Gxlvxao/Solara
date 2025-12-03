@@ -9,11 +9,13 @@ const Footer = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-6">
-            <img 
-              src={logoSolara} 
-              alt="Solara Project" 
-              className="h-10 w-auto brightness-0 invert"
-            />
+            <div className="h-12 w-12 rounded-full bg-white overflow-hidden flex items-center justify-center p-1">
+              <img 
+                src={logoSolara} 
+                alt="Solara Project" 
+                className="w-full h-full object-contain"
+              />
+            </div>
             <p className="text-sm font-light opacity-80 leading-relaxed">
               Strategic investment consultancy with conscious vision for sustainable prosperity.
             </p>

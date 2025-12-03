@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, MessageSquare } from "lucide-react";
+import { Mail, MessageSquare, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,13 +22,40 @@ const Contact = () => {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contacto brevemente.",
-    });
-    setFormData({ name: "", email: "", area: "", message: "" });
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Mensagem enviada!",
+          description: "Entraremos em contacto brevemente.",
+          variant: "default",
+        });
+        setFormData({ name: "", email: "", area: "", message: "" });
+      } else {
+        throw new Error(data.error || "Erro ao enviar");
+      }
+    } catch (error) {
+      toast({
+        title: "Erro ao enviar",
+        description: "Houve um problema ao enviar sua mensagem. Tente novamente ou use o WhatsApp.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const whatsappMessage = encodeURIComponent(
@@ -38,7 +66,6 @@ const Contact = () => {
     <div className="min-h-screen">
       <Header />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8 text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4">
@@ -55,11 +82,9 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact Form & Info */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
             <div>
               <h2 className="text-3xl md:text-4xl font-light mb-8">
                 Envie-nos uma <span className="text-primary">mensagem</span>
@@ -74,6 +99,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     required
+                    disabled={isLoading}
                     className="h-12"
                   />
                 </div>
@@ -86,13 +112,18 @@ const Contact = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     required
+                    disabled={isLoading}
                     className="h-12"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="area" className="font-light">Área de interesse</Label>
-                  <Select value={formData.area} onValueChange={(value) => setFormData({...formData, area: value})}>
+                  <Select 
+                    value={formData.area} 
+                    onValueChange={(value) => setFormData({...formData, area: value})}
+                    disabled={isLoading}
+                  >
                     <SelectTrigger className="h-12">
                       <SelectValue placeholder="Selecione uma opção" />
                     </SelectTrigger>
@@ -111,15 +142,20 @@ const Contact = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     required
+                    disabled={isLoading}
                     rows={6}
                     className="resize-none"
                   />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button type="submit" size="lg" className="flex-1">
-                    <Mail className="w-4 h-4 mr-2" />
-                    Enviar Mensagem
+                  <Button type="submit" size="lg" className="flex-1" disabled={isLoading}>
+                    {isLoading ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <Mail className="w-4 h-4 mr-2" />
+                    )}
+                    {isLoading ? "A enviar..." : "Enviar Mensagem"}
                   </Button>
                   <Button 
                     type="button"
@@ -141,7 +177,6 @@ const Contact = () => {
               </form>
             </div>
 
-            {/* Contact Information */}
             <div className="space-y-12">
               <div>
                 <h3 className="text-2xl font-light mb-6">

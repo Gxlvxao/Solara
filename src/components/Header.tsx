@@ -12,11 +12,13 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
-            <img 
-              src={logoSolara} 
-              alt="Solara Project" 
-              className="h-8 w-auto"
-            />
+            <div className="h-12 w-12 rounded-full border border-black p-1 bg-white overflow-hidden flex items-center justify-center">
+              <img 
+                src={logoSolara} 
+                alt="Solara Project" 
+                className="w-full h-full object-contain"
+              />
+            </div>
           </Link>
           
           <nav className="hidden md:flex items-center gap-8">
