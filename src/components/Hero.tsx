@@ -26,7 +26,7 @@ const Hero = () => {
 
             <div className="h-24 w-24 rounded-full border border-black p-2 bg-white overflow-hidden flex items-center justify-center shadow-sm hover:scale-105 transition-transform duration-300">
               <img 
-                src="/src/assets/logo-vision.png" 
+                src={logoVision} 
                 alt="Vision Press" 
                 className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity"
               />
