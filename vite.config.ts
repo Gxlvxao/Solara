@@ -4,7 +4,8 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/Solara/",
+  // 🔴 CORRIGIDO: Se for para um domínio principal, mude para "/"
+  base: "/", 
   server: {
     host: "::",
     port: 8080,

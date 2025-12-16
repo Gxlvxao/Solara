@@ -2,8 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// Usamos HashRouter para compatibilidade com deploy estático (ex: GitHub Pages)
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+// TROCADO: HashRouter foi substituído por BrowserRouter
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Páginas Públicas
 import Index from "./pages/Index";
@@ -29,7 +29,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <HashRouter>
+      {/* TROCADO: O componente HashRouter foi substituído por BrowserRouter */}
+      <BrowserRouter>
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/" element={<Index />} />
@@ -55,7 +56,7 @@ const App = () => (
           {/* Rota 404 - Deve ser sempre a última */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
