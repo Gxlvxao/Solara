@@ -36,10 +36,10 @@ const Hero = () => {
             ESTD 2025
           </p>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] text-foreground">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-foreground">
             Strategic Investment
             <br />
-            <span className="text-solara-vinho font-normal">Conscious Growth</span>
+            <span className="text-solara-vinho font-light">Conscious Growth</span>
           </h1>
           
           <p className="text-lg md:text-xl font-light text-muted-foreground max-w-2xl mx-auto leading-relaxed">
