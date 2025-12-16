@@ -41,28 +41,31 @@ const Vision = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-sans">
       <Header />
       
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
-            <img 
-              src={logoVision} 
-              alt="Vision Press" 
-              className="h-20 w-auto mx-auto mb-8 opacity-90"
-            />
-            <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4">
+            <div className="relative inline-block group">
+              <div className="absolute inset-0 bg-vision-light/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <img 
+                src={logoVision} 
+                alt="Vision Press" 
+                className="relative h-32 w-auto mx-auto mb-8 drop-shadow-lg hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <p className="text-sm uppercase tracking-[0.3em] text-vision-green font-medium mb-4">
               Creative Communication
             </p>
           </div>
           
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight text-foreground">
               Conteúdo é
               <br />
-              <span style={{ color: 'hsl(100, 22%, 13%)' }}>Investimento</span>
+              <span className="text-vision-green font-normal">Investimento</span>
             </h1>
             <p className="text-lg md:text-xl font-light text-muted-foreground leading-relaxed mb-8">
               Análises, tendências e narrativas que ampliam a visão do mercado
@@ -72,14 +75,17 @@ const Vision = () => {
               <Link to="/vision/articles">
                 <Button 
                   size="lg" 
-                  className="text-base"
-                  style={{ backgroundColor: 'hsl(100, 22%, 13%)' }}
+                  className="text-base bg-vision-green hover:bg-vision-light hover:text-vision-green transition-all duration-300 border border-transparent hover:border-vision-green"
                 >
                   Ler Artigos
                 </Button>
               </Link>
               <Link to="/">
-                <Button size="lg" variant="outline" className="text-base border-2">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-base border-2 border-vision-green text-vision-green hover:bg-vision-green/10"
+                >
                   Conheça a Solara
                 </Button>
               </Link>
@@ -93,7 +99,7 @@ const Vision = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Destaques <span style={{ color: 'hsl(100, 22%, 13%)' }}>Recentes</span>
+              Destaques <span className="text-vision-green font-normal">Recentes</span>
             </h2>
             <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto">
               Insights e análises que transformam informação em visão estratégica
@@ -102,7 +108,7 @@ const Vision = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {articles.map((article, index) => (
-              <Card key={index} className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <Card key={index} className="border-0 shadow-lg overflow-hidden group hover:shadow-xl hover:shadow-vision-green/10 transition-all duration-500">
                 <div className="aspect-[3/2] overflow-hidden">
                   <img 
                     src={article.image} 
@@ -112,13 +118,12 @@ const Vision = () => {
                 </div>
                 <CardContent className="p-6">
                   <Badge 
-                    className="mb-4 font-light" 
-                    style={{ backgroundColor: 'hsl(100, 19%, 74%)', color: 'hsl(100, 22%, 13%)' }}
+                    className="mb-4 font-normal bg-vision-green/10 text-vision-green hover:bg-vision-green hover:text-white transition-colors" 
                   >
                     {article.category}
                   </Badge>
                   
-                  <h3 className="text-xl font-light mb-3 leading-tight group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-light mb-3 leading-tight group-hover:text-vision-green transition-colors">
                     {article.title}
                   </h3>
                   
@@ -128,11 +133,11 @@ const Vision = () => {
                   
                   <div className="flex items-center gap-4 text-xs text-muted-foreground font-light">
                     <div className="flex items-center gap-1">
-                      <User className="w-3 h-3" />
+                      <User className="w-3 h-3 text-vision-green" />
                       <span>{article.author}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
+                      <Calendar className="w-3 h-3 text-vision-green" />
                       <span>{article.date}</span>
                     </div>
                   </div>
@@ -143,9 +148,13 @@ const Vision = () => {
 
           <div className="text-center mt-12">
             <Link to="/vision/articles">
-              <Button variant="outline" size="lg" className="border-2">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-2 border-vision-green text-vision-green hover:bg-vision-green hover:text-white transition-all duration-300 group"
+              >
                 Ver Todos os Artigos
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>
@@ -156,23 +165,23 @@ const Vision = () => {
       <section className="py-24 bg-neutral-50">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="border-l-4 pl-8" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
+            <div className="border-l-4 pl-8 border-vision-green">
               <h2 className="text-3xl md:text-4xl font-light mb-6">
-                Em parceria com a <span className="text-primary">Solara</span>
+                Em parceria com a <span className="text-solara-vinho font-normal">Solara</span>
               </h2>
               <p className="text-lg font-light text-muted-foreground leading-relaxed mb-6">
                 A Vision Press trabalha em colaboração direta com a Solara Project, 
                 explorando a interseção entre investimento, comunicação e consciência global.
               </p>
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                Cada artigo, análise e conteúdo é desenvolvido com a mesma rigor e 
+                Cada artigo, análise e conteúdo é desenvolvido com o mesmo rigor e 
                 transparência que orientam as estratégias de investimento da Solara.
               </p>
               <Link to="/">
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="mt-8 border-2"
+                  className="mt-8 border-2 border-vision-green text-vision-green hover:bg-vision-green hover:text-white transition-colors"
                 >
                   Ver Projetos Conjuntos
                 </Button>
@@ -185,10 +194,10 @@ const Vision = () => {
       {/* Newsletter CTA */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
-          <Card className="border-0 shadow-2xl overflow-hidden">
-            <CardContent className="p-12 md:p-16 text-center bg-gradient-to-br from-neutral-50 to-background">
+          <Card className="border-0 shadow-2xl overflow-hidden ring-1 ring-vision-green/10">
+            <CardContent className="p-12 md:p-16 text-center bg-gradient-to-br from-vision-green/5 to-background">
               <h2 className="text-3xl md:text-4xl font-light mb-4">
-                Receba os principais <span style={{ color: 'hsl(100, 22%, 13%)' }}>insights</span>
+                Receba os principais <span className="text-vision-green font-normal">insights</span>
               </h2>
               <p className="text-lg font-light text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Subscreva a newsletter da Vision Press e receba análises exclusivas de mercado
@@ -198,13 +207,13 @@ const Vision = () => {
                 <Input 
                   type="email" 
                   placeholder="O seu e-mail" 
-                  className="h-12 flex-1"
+                  className="h-12 flex-1 border-vision-green/20 focus-visible:ring-vision-green"
                   required
                 />
                 <Button 
                   type="submit"
                   size="lg"
-                  style={{ backgroundColor: 'hsl(100, 22%, 13%)' }}
+                  className="bg-vision-green hover:bg-vision-light hover:text-vision-green transition-all duration-300"
                 >
                   Subscrever
                 </Button>

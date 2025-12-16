@@ -9,7 +9,7 @@ const VisionConnection = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-vision-green/10">
               <img 
                 src={visionImg} 
                 alt="Vision Press workspace" 
@@ -43,18 +43,18 @@ const VisionConnection = () => {
             </p>
             
             <div className="space-y-4 pt-4">
-              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30">
+              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30 hover:border-vision-green transition-colors duration-300">
                 <div className="flex-1">
-                  <h4 className="font-light text-lg mb-2">Editorial Excellence</h4>
+                  <h4 className="font-light text-lg mb-2 text-foreground">Editorial Excellence</h4>
                   <p className="text-sm font-light text-muted-foreground">
                     In-depth articles on markets, society, and conscious business
                   </p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30">
+              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30 hover:border-vision-green transition-colors duration-300">
                 <div className="flex-1">
-                  <h4 className="font-light text-lg mb-2">Strategic Communication</h4>
+                  <h4 className="font-light text-lg mb-2 text-foreground">Strategic Communication</h4>
                   <p className="text-sm font-light text-muted-foreground">
                     Brand development and corporate storytelling that resonates
                   </p>
@@ -66,7 +66,7 @@ const VisionConnection = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-vision-green text-vision-green hover:bg-vision-green/10 transition-colors"
+                className="border-2 border-vision-green text-vision-green hover:bg-vision-light hover:text-vision-green hover:border-vision-light transition-all duration-300 shadow-sm"
               >
                 Explore Vision Press
               </Button>

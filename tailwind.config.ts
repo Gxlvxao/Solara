@@ -62,7 +62,8 @@ export default {
           salmon: "#E67E73",
         },
         vision: {
-          green: "#064E3B", 
+          green: "#064E3B",
+          light: "#6EE7B7", // Verde claro para interações/cliques
         }
       },
       borderRadius: {

@@ -7,6 +7,11 @@ const Header = () => {
   const location = useLocation();
   const isVisionSection = location.pathname.startsWith('/vision');
 
+  // Define a classe de hover baseada na secção atual
+  const navLinkHoverClass = isVisionSection 
+    ? "hover:text-vision-green" 
+    : "hover:text-solara-vinho";
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-300">
       <div className="container mx-auto px-6 lg:px-8">
@@ -22,21 +27,25 @@ const Header = () => {
           </Link>
           
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-light hover:text-solara-vinho transition-colors">
+            <Link to="/" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
               Home
             </Link>
-            <Link to="/services" className="text-sm font-light hover:text-solara-vinho transition-colors">
+            <Link to="/services" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
               Serviços
             </Link>
-            <Link to="/about" className="text-sm font-light hover:text-solara-vinho transition-colors">
+            <Link to="/about" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
               Sobre
             </Link>
-            <Link to="/contact" className="text-sm font-light hover:text-solara-vinho transition-colors">
+            <Link to="/contact" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
               Contacto
             </Link>
             {!isVisionSection && (
               <Link to="/vision">
-                <Button variant="outline" size="sm" className="border-2 hover:bg-vision-green/10" style={{ borderColor: '#064E3B', color: '#064E3B' }}>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-2 border-vision-green text-vision-green hover:bg-vision-light/20 hover:text-vision-green transition-colors"
+                >
                   Conheça a Vision Press
                 </Button>
               </Link>
