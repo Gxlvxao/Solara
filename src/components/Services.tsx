@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import realEstateImg from "@/assets/service-real-estate.jpg";
 import financialImg from "@/assets/service-financial.jpg";
-import consultingImg from "@/assets/service-consulting.jpg";
+import consultingImg from "@/assets/service-consulting-premium.jpg";
 
 const services = [
   {
