@@ -2,115 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   :root {
-    /* Solara Brand Colors */
+    /* Solara Brand Colors - Ajustado para Salmão e Vinho Nobre */
     --solara-peach: 23 86% 70%;
     --solara-burgundy: 356 69% 22%;
     
-    /* Vision Brand Colors */
+    /* Vision Brand Colors - Verdes da Vision */
     --vision-sage: 100 19% 74%;
     --vision-olive: 100 22% 13%;
     
-    /* Shared Neutrals */
-    --brand-black: 30 3% 11%;
-    --brand-white: 0 0% 100%;
-    
-    /* UI Neutrals */
-    --neutral-50: 0 0% 97%;
-    --neutral-100: 0 0% 94%;
-    --neutral-300: 0 0% 84%;
-    --neutral-700: 0 0% 29%;
-    --neutral-900: 0 0% 12%;
-    
-    /* Design System Tokens */
+    /* System Colors */
     --background: 0 0% 100%;
     --foreground: 30 3% 11%;
-
     --card: 0 0% 100%;
     --card-foreground: 30 3% 11%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 30 3% 11%;
-
+    
+    /* Primary agora é o Vinho da Solara */
     --primary: 356 69% 22%;
     --primary-foreground: 0 0% 100%;
-
+    
+    /* Secondary agora é o Salmão da Solara */
     --secondary: 23 86% 70%;
     --secondary-foreground: 30 3% 11%;
 
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 29%;
-
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
     --accent: 23 86% 70%;
     --accent-foreground: 30 3% 11%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 84%;
-    --input: 0 0% 84%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
     --ring: 356 69% 22%;
-
-    --radius: 1.25rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 30 3% 11%;
-    --foreground: 0 0% 100%;
-
-    --card: 30 3% 11%;
-    --card-foreground: 0 0% 100%;
-
-    --popover: 30 3% 11%;
-    --popover-foreground: 0 0% 100%;
-
-    --primary: 0 0% 100%;
-    --primary-foreground: 356 69% 22%;
-
-    --secondary: 23 86% 70%;
-    --secondary-foreground: 30 3% 11%;
-
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 23 86% 70%;
-    --accent-foreground: 30 3% 11%;
-
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 23 86% 70%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --radius: 0.5rem;
   }
 }
 
@@ -118,12 +49,11 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground font-['Poppins',system-ui,sans-serif] antialiased;
   }
-  
   h1, h2, h3, h4, h5, h6 {
+    /* Forçando a fonte fina/light como pedido */
     @apply font-light tracking-tight;
   }
 }
