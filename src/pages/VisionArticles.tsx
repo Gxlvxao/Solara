@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface Post {
   id: number;
   title: string;
@@ -20,12 +22,7 @@ interface Post {
   excerpt: string;
   image: string;
   createdAt: string;
-  author?: string;
-  readTime?: string;
 }
-
-const API_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const VisionArticles = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,7 +61,7 @@ const VisionArticles = () => {
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return visionImg;
     if (imagePath.startsWith('http')) return imagePath;
-    return `${BASE_URL}${imagePath}`;
+    return `${API_URL}${imagePath}`;
   };
 
   return (

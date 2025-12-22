@@ -12,6 +12,8 @@ import signatureCamila from "@/assets/signature-camila.png";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface PostDetail {
   id: number;
   title: string;
@@ -22,9 +24,6 @@ interface PostDetail {
   excerpt: string;
   createdAt: string;
 }
-
-const API_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const VisionArticleDetail = () => {
   const { slug } = useParams();
@@ -59,7 +58,7 @@ const VisionArticleDetail = () => {
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return visionImg;
     if (imagePath.startsWith('http')) return imagePath;
-    return `${BASE_URL}${imagePath}`;
+    return `${API_URL}${imagePath}`;
   };
 
   if (isLoading) {
@@ -91,6 +90,7 @@ const VisionArticleDetail = () => {
       <Header />
 
       <main className="pt-32 pb-24">
+        {/* Article Header */}
         <div className="container mx-auto px-6 lg:px-8 max-w-4xl text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-6">
             <Badge className="bg-vision-green/10 text-vision-green hover:bg-vision-green hover:text-white transition-colors font-normal px-4 py-1 pointer-events-none">
@@ -130,6 +130,7 @@ const VisionArticleDetail = () => {
           </div>
         </div>
 
+        {/* Hero Image */}
         <div className="container mx-auto px-6 lg:px-8 mb-16">
           <div className="aspect-[21/9] overflow-hidden rounded-sm shadow-xl max-w-6xl mx-auto group">
             <img 
@@ -140,6 +141,7 @@ const VisionArticleDetail = () => {
           </div>
         </div>
 
+        {/* Content Area */}
         <div className="container mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl">
           
           <div className="lg:col-span-2 hidden lg:flex flex-col items-end gap-4 sticky top-32 h-fit">
@@ -178,7 +180,7 @@ const VisionArticleDetail = () => {
                 <img 
                   src={signatureCamila} 
                   alt="Assinatura Camila Montenegro" 
-                  className="h-24 w-auto object-contain opacity-90"
+                  className="h-24 w-auto object-contain self-start opacity-80"
                 />
                 <div>
                   <h4 className="font-serif text-xl mb-2 text-foreground">Camila Montenegro</h4>
@@ -190,7 +192,7 @@ const VisionArticleDetail = () => {
               </div>
             </div>
           </div>
-            
+           
           <div className="lg:col-span-2"></div>
         </div>
       </main>

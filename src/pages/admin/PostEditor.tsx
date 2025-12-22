@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -15,6 +15,8 @@ import {
 import { ArrowLeft, Save, Loader2, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const CATEGORIES = [
   "Negócios",
   "Imobiliário",
@@ -22,9 +24,6 @@ const CATEGORIES = [
   "Sociedade",
   "Tendências"
 ];
-
-const API_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const AdminPostEditor = () => {
   const { id } = useParams();
@@ -59,7 +58,7 @@ const AdminPostEditor = () => {
               content: data.content,
             });
             if (data.image) {
-              setPreviewUrl(`${BASE_URL}${data.image}`);
+              setPreviewUrl(`${API_URL}${data.image}`);
             }
           } else {
             toast.error("Erro ao carregar dados do artigo.");
@@ -277,7 +276,7 @@ const AdminPostEditor = () => {
                 </Link>
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-solara-vinho hover:bg-solara-vinho/90 text-white text-lg font-light"
+                  className="bg-vision-green hover:bg-vision-green/90 text-white min-w-[150px]"
                   disabled={isLoading}
                 >
                   {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}

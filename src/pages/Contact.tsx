@@ -12,6 +12,8 @@ import { Mail, MessageSquare, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Contact = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +29,7 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      const response = await fetch(`${API_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
