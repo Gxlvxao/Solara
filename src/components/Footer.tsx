@@ -1,4 +1,4 @@
-import logoSolara from "@/assets/logo-solara-alt.jpg";
+import logoSolara from "@/assets/logo-solara-full.png"; // Logo atualizada
 import logoVision from "@/assets/logo-vision.png";
 
 const Footer = () => {
@@ -14,7 +14,7 @@ const Footer = () => {
               <img 
                 src={logoSolara} 
                 alt="Solara Project" 
-                className="h-20 w-auto object-contain" // Aumentado para h-20
+                className="h-20 w-auto object-contain" // Mantido h-20 conforme solicitado
               />
             </div>
             <p className="text-sm font-light opacity-80 leading-relaxed">

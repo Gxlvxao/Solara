@@ -7,13 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import logoVision from "@/assets/logo-vision.png";
-import visionImg from "@/assets/vision-editorial.jpg";
-import signatureCamila from "@/assets/signature-camila.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+
+// --- IMPORTAÇÃO DE ASSETS (Sem URLs chumbadas) ---
+import logoVision from "@/assets/logo-vision.png";
+import logoSolara from "@/assets/logo-solara-full.png"; 
+import camilaImg from "@/assets/camila.png";
+import signatureCamila from "@/assets/signature-camila.png"; 
 
 interface Post {
   id: number;
@@ -26,12 +29,49 @@ interface Post {
   author?: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
+// Configuração dinâmica da API baseada no ambiente
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const BASE_URL = API_URL.replace('/api', '');
 
 const Vision = () => {
   const [recentPosts, setRecentPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // --- ESTADOS PARA O EFEITO HERO 3D (Replicado da Solara) ---
+  const [mousePosition, setMousePosition] = useState({ 
+    x: 0, 
+    y: 0,
+    pixelX: 0,
+    pixelY: 0
+  });
+  const [isHoveringLogo, setIsHoveringLogo] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      
+      const x = (event.clientX - innerWidth / 2) / (innerWidth / 2);
+      const y = (event.clientY - innerHeight / 2) / (innerHeight / 2);
+      const pixelX = event.clientX;
+      const pixelY = event.clientY;
+
+      requestAnimationFrame(() => {
+        setMousePosition({ x, y, pixelX, pixelY });
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Cálculos de física para os efeitos (Vinho e Verde)
+  const moveX = mousePosition.x * 30; 
+  const moveY = mousePosition.y * 30;
+  const rotateDynamic = mousePosition.x * 5; 
+  const skewDynamic = mousePosition.y * 2; 
+  const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -25;
+  const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 25;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -53,7 +93,7 @@ const Vision = () => {
   }, []);
 
   const getImageUrl = (imagePath: string) => {
-    if (!imagePath) return visionImg;
+    if (!imagePath) return logoVision; // Fallback seguro
     if (imagePath.startsWith('http')) return imagePath;
     return `${BASE_URL}${imagePath}`;
   };
@@ -62,29 +102,97 @@ const Vision = () => {
     <div className="min-h-screen font-sans selection:bg-vision-light/30">
       <Header />
       
-      <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="relative inline-block group">
-              <div className="absolute inset-0 bg-vision-light/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <img 
-                src={logoVision} 
-                alt="Vision Press" 
-                className="relative h-32 w-auto mx-auto mb-8 drop-shadow-lg hover:scale-105 transition-transform duration-500"
-              />
+      {/* --- HERO SECTION COM EFEITOS 3D --- */}
+      <section 
+        ref={containerRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f8f8f8] perspective-1000 pt-20"
+      >
+        {/* CAMADA DE FUNDO INTERATIVA */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Noise */}
+          <div className="absolute inset-0 opacity-[0.04] z-10 mix-blend-multiply" 
+               style={{ 
+                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
+               }} 
+          />
+
+          {/* Spotlight */}
+          <div 
+            className="absolute inset-0 z-20 mix-blend-overlay transition-opacity duration-300"
+            style={{
+              background: `radial-gradient(600px circle at ${mousePosition.pixelX}px ${mousePosition.pixelY}px, rgba(255,255,255,0.8), transparent 40%)`
+            }}
+          />
+
+          {/* Feixes de Luz (Prismas) */}
+          {/* Feixe Verde (Identidade Vision) - Esquerda */}
+          <div 
+            className="absolute -top-[10%] -left-[10%] w-[70vw] h-[140vh] bg-gradient-to-br from-vision-green via-[#0a5c45] to-transparent opacity-20 blur-[50px]"
+            style={{
+              transform: `translate(${moveX * -1.5}px, ${moveY * -1.5}px) rotate(${-15 + rotateDynamic}deg) skewX(${skewDynamic}deg)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          />
+
+          {/* Feixe Vinho (Parceiro Solara) - Direita */}
+          <div 
+            className="absolute -bottom-[10%] -right-[10%] w-[60vw] h-[120vh] bg-gradient-to-tl from-solara-vinho via-[#701c35] to-transparent opacity-15 blur-[50px]"
+            style={{
+              transform: `translate(${moveX * 1.5}px, ${moveY * 1.5}px) rotate(${15 + rotateDynamic}deg) skewY(${skewDynamic * -1}deg)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          />
+        </div>
+
+        <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-10">
+          <div className="max-w-4xl mx-auto">
+            
+            {/* LOGO SOLARA HERO (Substituindo Vision) */}
+            <div className="flex flex-col items-center gap-6 mb-12">
+                <Link to="/" className="block perspective-container relative group">
+                  <div 
+                    className="flex items-center justify-center transition-all duration-300 ease-out will-change-transform relative"
+                    onMouseEnter={() => setIsHoveringLogo(true)}
+                    onMouseLeave={() => setIsHoveringLogo(false)}
+                    style={{
+                      transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.05 : 1}, ${isHoveringLogo ? 1.05 : 1}, 1)`,
+                    }}
+                  >
+                    {/* Glow interativo da logo SOLARA (Cor Vinho) */}
+                    <div 
+                      className={`absolute inset-0 bg-solara-vinho rounded-full blur-[60px] transition-all duration-500 ${isHoveringLogo ? 'opacity-40 scale-125' : 'opacity-0 scale-90'}`}
+                      style={{ zIndex: -1 }}
+                    />
+
+                    <img 
+                      src={logoSolara} 
+                      alt="Solara Project" 
+                      className="h-40 md:h-52 w-auto object-contain transition-all duration-300 relative z-10 mix-blend-multiply" 
+                      style={{
+                        filter: isHoveringLogo 
+                          ? `drop-shadow(0 15px 35px rgba(114, 47, 55, 0.3))` 
+                          : `drop-shadow(${mousePosition.x * -10}px ${mousePosition.y * 10}px 15px rgba(0,0,0,0.1))`
+                      }}
+                    />
+                  </div>
+                </Link>
             </div>
-            <p className="text-sm uppercase tracking-[0.3em] text-vision-green font-medium mb-4">
-              Creative Communication
-            </p>
-          </div>
-          
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight text-foreground">
-              Conteúdo é
-              <br />
-              <span className="text-vision-green font-normal">Investimento</span>
-            </h1>
-            <p className="text-lg md:text-xl font-light text-muted-foreground leading-relaxed mb-8">
+            
+            {/* Título Magnético */}
+            <div style={{
+               transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+               transition: 'transform 0.1s ease-out'
+            }}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight text-foreground">
+                Conteúdo é
+                <br />
+                <span className="text-vision-green font-normal relative inline-block">
+                  Investimento
+                </span>
+              </h1>
+            </div>
+
+            <p className="text-lg md:text-xl font-light text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
               Análises, tendências e narrativas que ampliam a visão do mercado
             </p>
             
@@ -92,7 +200,7 @@ const Vision = () => {
               <Link to="/vision/articles">
                 <Button 
                   size="lg" 
-                  className="text-base bg-vision-green hover:bg-vision-light hover:text-vision-green transition-all duration-300 border border-transparent hover:border-vision-green"
+                  className="text-base bg-vision-green hover:bg-vision-light hover:text-vision-green transition-all duration-300 border border-transparent hover:border-vision-green px-8 py-6 rounded-none uppercase tracking-widest text-xs font-bold shadow-xl"
                 >
                   Ler Artigos
                 </Button>
@@ -101,7 +209,7 @@ const Vision = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="text-base border-2 border-vision-green text-vision-green hover:bg-vision-green/10"
+                  className="text-base border border-solara-vinho text-solara-vinho hover:bg-solara-vinho/5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 px-8 py-6 rounded-none uppercase tracking-widest text-xs font-bold"
                 >
                   Conheça a Solara
                 </Button>
@@ -111,6 +219,7 @@ const Vision = () => {
         </div>
       </section>
 
+      {/* --- DESTAQUES RECENTES --- */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -192,6 +301,7 @@ const Vision = () => {
         </div>
       </section>
 
+      {/* --- SOBRE MIM (ATUALIZADO COM FOTO CAMILA) --- */}
       <section className="py-24 bg-neutral-50 overflow-hidden">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -199,7 +309,7 @@ const Vision = () => {
             <div className="relative order-2 lg:order-1">
               <div className="relative aspect-[3/4] rounded-sm overflow-hidden shadow-2xl max-w-md mx-auto">
                 <img 
-                  src={visionImg} 
+                  src={camilaImg} 
                   alt="Camila Montenegro" 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
@@ -254,6 +364,7 @@ const Vision = () => {
         </div>
       </section>
 
+      {/* --- SEÇÃO PARCERIA (MANTIDA MAS COM CONTEXTO) --- */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
@@ -283,6 +394,7 @@ const Vision = () => {
         </div>
       </section>
 
+      {/* --- NEWSLETTER --- */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <Card className="border-0 shadow-2xl overflow-hidden ring-1 ring-vision-green/10">

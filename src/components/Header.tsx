@@ -43,11 +43,11 @@ const Header = () => {
           <Link to={isVisionSection ? "/vision" : "/"} className="flex items-center group">
             <div className="flex items-center justify-center transition-transform group-hover:scale-105">
               {isVisionSection ? (
-                // Logo Vision Press
+                // Logo Vision Press - AUMENTADA AQUI (h-20 md:h-24)
                 <img 
                   src={logoVision} 
                   alt="Vision Press" 
-                  className="h-16 w-auto object-contain" 
+                  className="h-20 md:h-28 w-auto object-contain" 
                 />
               ) : (
                 // Logo Solara
